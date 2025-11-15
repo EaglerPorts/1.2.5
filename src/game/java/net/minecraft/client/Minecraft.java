@@ -2,6 +2,7 @@ package net.minecraft.client;
 
 import net.lax1dude.eaglercraft.EagRuntime;
 import net.lax1dude.eaglercraft.internal.vfs2.VFile2;
+import net.lax1dude.eaglercraft.profile.GuiScreenEditProfile;
 import net.minecraft.src.AchievementList;
 import net.minecraft.src.AnvilSaveConverter;
 import net.minecraft.src.AxisAlignedBB;
@@ -266,7 +267,7 @@ public class Minecraft implements Runnable {
 		if (this.serverName != null) {
 			this.displayGuiScreen(new GuiConnecting(this, this.menu, this.serverName));
 		} else {
-			this.displayGuiScreen(this.menu);
+			this.displayGuiScreen(new GuiScreenEditProfile(this.menu));
 		}
 
 		this.loadingScreen = new LoadingScreenRenderer(this);
