@@ -7,6 +7,8 @@ import java.util.List;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 
+import dev.colbster937.eaglercraft.utils.I18n;
+import dev.colbster937.eaglercraft.utils.ScuffedUtils;
 import net.lax1dude.eaglercraft.EagRuntime;
 
 public class GuiChat extends GuiScreen {
@@ -30,6 +32,7 @@ public class GuiChat extends GuiScreen {
 
 	public void initGui() {
 		Keyboard.enableRepeatEvents(true);
+		if (!(this instanceof GuiSleepMP)) this.controlList.add(new GuiButton(0, this.width - 100, 3, 97, 20, I18n.format("chat.exit")));
 		this.field_50063_c = this.mc.ingameGUI.func_50013_c().size();
 		this.field_50064_a = new GuiTextField(this.fontRenderer, 4, this.height - 12, this.width - 4, 12);
 		this.field_50064_a.setMaxStringLength(100);
@@ -61,6 +64,12 @@ public class GuiChat extends GuiScreen {
 			String var3 = this.field_50064_a.getText().trim();
 			if(var3.length() > 0 && !this.mc.lineIsCommand(var3)) {
 				this.mc.thePlayer.sendChatMessage(var3);
+			} else if (var2 == Keyboard.KEY_V && ScuffedUtils.isCtrlKeyDown()) {
+				String clip = getClipboardString();
+				if (clip == null) clip = "";
+				this.field_50066_k += clip;
+				if (this.field_50066_k.length() > 100) this.field_50066_k.subSequence(0, 100);
+				return;
 			}
 
 			this.mc.displayGuiScreen((GuiScreen)null);
