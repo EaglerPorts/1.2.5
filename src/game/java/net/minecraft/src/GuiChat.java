@@ -210,4 +210,8 @@ public class GuiChat extends GuiScreen {
 		this.field_50064_a.drawTextBox();
 		super.drawScreen(var1, var2, var3);
 	}
+
+	public boolean doesGuiPauseGame() {
+		return false;
+	}
 }

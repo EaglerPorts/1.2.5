@@ -3,6 +3,8 @@ package net.minecraft.src;
 import java.util.HashMap;
 import java.util.Map;
 
+import net.peyton.eagler.minecraft.suppliers.TileEntitySupplier;
+
 public class TileEntity {
 	private static Map nameToClassMap = new HashMap();
 	private static Map classToNameMap = new HashMap();
@@ -14,12 +16,12 @@ public class TileEntity {
 	public int blockMetadata = -1;
 	public Block blockType;
 
-	private static void addMapping(Class var0, String var1) {
-		if(classToNameMap.containsKey(var1)) {
-			throw new IllegalArgumentException("Duplicate id: " + var1);
+	private static void addMapping(Class var0, TileEntitySupplier var1, String var2) {
+		if(classToNameMap.containsKey(var2)) {
+			throw new IllegalArgumentException("Duplicate id: " + var2);
 		} else {
-			nameToClassMap.put(var1, var0);
-			classToNameMap.put(var0, var1);
+			nameToClassMap.put(var2, var1);
+			classToNameMap.put(var0, var2);
 		}
 	}
 
@@ -48,9 +50,9 @@ public class TileEntity {
 		TileEntity var1 = null;
 
 		try {
-			Class var2 = (Class)nameToClassMap.get(var0.getString("id"));
+			TileEntitySupplier var2 = (TileEntitySupplier)nameToClassMap.get(var0.getString("id"));
 			if(var2 != null) {
-				var1 = (TileEntity)var2.newInstance();
+				var1 = (TileEntity)var2.createTileEntity();
 			}
 		} catch (Exception var3) {
 			var3.printStackTrace();
@@ -117,16 +119,16 @@ public class TileEntity {
 	}
 
 	static {
-		addMapping(TileEntityFurnace.class, "Furnace");
-		addMapping(TileEntityChest.class, "Chest");
-		addMapping(TileEntityRecordPlayer.class, "RecordPlayer");
-		addMapping(TileEntityDispenser.class, "Trap");
-		addMapping(TileEntitySign.class, "Sign");
-		addMapping(TileEntityMobSpawner.class, "MobSpawner");
-		addMapping(TileEntityNote.class, "Music");
-		addMapping(TileEntityPiston.class, "Piston");
-		addMapping(TileEntityBrewingStand.class, "Cauldron");
-		addMapping(TileEntityEnchantmentTable.class, "EnchantTable");
-		addMapping(TileEntityEndPortal.class, "Airportal");
+		addMapping(TileEntityFurnace.class, TileEntityFurnace::new, "Furnace");
+		addMapping(TileEntityChest.class, TileEntityChest::new, "Chest");
+		addMapping(TileEntityRecordPlayer.class, TileEntityRecordPlayer::new, "RecordPlayer");
+		addMapping(TileEntityDispenser.class, TileEntityDispenser::new, "Trap");
+		addMapping(TileEntitySign.class, TileEntitySign::new, "Sign");
+		addMapping(TileEntityMobSpawner.class, TileEntityMobSpawner::new, "MobSpawner");
+		addMapping(TileEntityNote.class, TileEntityNote::new, "Music");
+		addMapping(TileEntityPiston.class, TileEntityPiston::new, "Piston");
+		addMapping(TileEntityBrewingStand.class, TileEntityBrewingStand::new, "Cauldron");
+		addMapping(TileEntityEnchantmentTable.class, TileEntityEnchantmentTable::new, "EnchantTable");
+		addMapping(TileEntityEndPortal.class, TileEntityEndPortal::new, "Airportal");
 	}
 }
