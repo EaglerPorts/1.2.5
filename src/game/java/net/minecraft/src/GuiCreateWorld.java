@@ -3,6 +3,8 @@ package net.minecraft.src;
 import net.lax1dude.eaglercraft.Random;
 import org.lwjgl.input.Keyboard;
 
+import dev.colbster937.eaglercraft.utils.SaveUtils;
+
 public class GuiCreateWorld extends GuiScreen {
 	private GuiScreen parentGuiScreen;
 	private GuiTextField textboxWorldName;
@@ -113,6 +115,7 @@ public class GuiCreateWorld extends GuiScreen {
 			if (var1.id == 1) {
 				this.mc.displayGuiScreen(this.parentGuiScreen);
 			} else if (var1.id == 0) {
+				SaveUtils.i.addToManifest(this.folderName);
 				this.mc.displayGuiScreen((GuiScreen) null);
 				if (this.createClicked) {
 					return;
