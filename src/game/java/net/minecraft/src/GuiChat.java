@@ -220,6 +220,13 @@ public class GuiChat extends GuiScreen {
 		super.drawScreen(var1, var2, var3);
 	}
 
+	protected void actionPerformed(GuiButton var1) {
+		if (var1.id == 0) {
+			this.mc.displayGuiScreen(null);
+			this.mc.setIngameFocus();
+		}
+	}
+
 	public boolean doesGuiPauseGame() {
 		return false;
 	}
