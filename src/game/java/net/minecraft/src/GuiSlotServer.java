@@ -19,9 +19,16 @@ class GuiSlotServer extends GuiSlot {
 	protected void elementClicked(int var1, boolean var2) {
 		GuiMultiplayer.setSelectedServer(this.parentGui, var1);
 		boolean var3 = GuiMultiplayer.getSelectedServer(this.parentGui) >= 0 && GuiMultiplayer.getSelectedServer(this.parentGui) < this.getSize();
-		GuiMultiplayer.getButtonSelect(this.parentGui).enabled = var3;
-		GuiMultiplayer.getButtonEdit(this.parentGui).enabled = var3;
-		GuiMultiplayer.getButtonDelete(this.parentGui).enabled = var3;
+		if (var3) {
+			ServerNBTStorage server = (ServerNBTStorage) GuiMultiplayer.getServerList(this.parentGui).get(var1);
+			GuiMultiplayer.getButtonSelect(this.parentGui).enabled = var3;
+			GuiMultiplayer.getButtonEdit(this.parentGui).enabled = var3 && !server.isDefault;
+			GuiMultiplayer.getButtonDelete(this.parentGui).enabled = var3 && !server.isDefault;
+		} else {
+			GuiMultiplayer.getButtonSelect(this.parentGui).enabled = var3;
+			GuiMultiplayer.getButtonEdit(this.parentGui).enabled = var3;
+			GuiMultiplayer.getButtonDelete(this.parentGui).enabled = var3;
+		}
 		if(var2 && var3) {
 			GuiMultiplayer.joinServer(this.parentGui, var1);
 		}
