@@ -46,7 +46,7 @@ val jsFileName = "classes.js"
 val debug = project.hasProperty("debug")
 
 teavm.js {
-	obfuscated = false
+	obfuscated = !debug
 	sourceMap = true
 	targetFileName = "../$jsFileName"
 	optimization = OptimizationLevel.valueOf(if (debug) "NONE" else "AGGRESSIVE")
