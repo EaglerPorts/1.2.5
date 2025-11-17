@@ -64,15 +64,16 @@ public class GuiChat extends GuiScreen {
 			String var3 = this.field_50064_a.getText().trim();
 			if(var3.length() > 0 && !this.mc.lineIsCommand(var3)) {
 				this.mc.thePlayer.sendChatMessage(var3);
-			} else if (var2 == Keyboard.KEY_V && ScuffedUtils.isCtrlKeyDown()) {
-				String clip = getClipboardString();
-				if (clip == null) clip = "";
-				this.field_50066_k += clip;
-				if (this.field_50066_k.length() > 100) this.field_50066_k.subSequence(0, 100);
-				return;
 			}
 
 			this.mc.displayGuiScreen((GuiScreen)null);
+		} else if (var2 == Keyboard.KEY_V && ScuffedUtils.isCtrlKeyDown()) {
+			String clip = getClipboardString();
+			if (clip == null) clip = "";
+			String txt = this.field_50064_a.getText() + clip;
+			if (txt.length() > 100) txt = txt.substring(0, 100);
+			this.field_50064_a.setText(txt);
+			return;
 		} else if(var2 == 200) {
 			this.func_50058_a(-1);
 		} else if(var2 == 208) {
@@ -82,7 +83,12 @@ public class GuiChat extends GuiScreen {
 		} else if(var2 == 209) {
 			this.mc.ingameGUI.func_50011_a(-19);
 		} else {
-			this.field_50064_a.func_50037_a(var1, var2);
+    	if (var1 == ' ') {
+				String txt = this.field_50064_a.getText();
+				if (txt.length() < 100) this.field_50064_a.setText(txt + " ");
+			} else {
+				this.field_50064_a.func_50037_a(var1, var2);
+			}
 		}
 
 	}
