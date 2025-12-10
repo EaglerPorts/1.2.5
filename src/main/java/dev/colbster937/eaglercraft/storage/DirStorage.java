@@ -196,7 +196,7 @@ public class DirStorage {
         if (prog instanceof LoadingScreenRenderer)
           ((LoadingScreenRenderer) prog).printText(title);
         else
-          prog.func_594_b(title);
+          prog.displayLoadingString(title);
       }
       if (!ScuffedUtils.isStringEmpty(text))
         prog.displayLoadingString(text);
